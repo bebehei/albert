@@ -48,4 +48,15 @@ if(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
     # Define where to install the themes
     install(DIRECTORY data/themes DESTINATION share/albert COMPONENT config)
 
+elseif(${CMAKE_SYSTEM_NAME} MATCHES "FreeBSD")
+
+    # Install desktop entry
+    install(FILES data/albert.desktop DESTINATION share/applications )
+
+    # Install icon
+    install(FILES src/lib/albert/resources/icons/albert.svg DESTINATION share/icons/hicolor/scalable/apps)
+
+    # Define where to install the themes
+    install(DIRECTORY data/themes DESTINATION share/albert COMPONENT config)
+
 endif (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
