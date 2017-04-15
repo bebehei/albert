@@ -17,6 +17,8 @@
 #include "hotkeymanager.h"
 #if defined __linux__
 #include "hotkeymanager_x11.h"
+#elif defined __FreeBSD__
+#include "hotkeymanager_x11.h"
 #elif defined __APPLE__
 #elif defined _WIN32
 #include "hotkeymanager_win.h"

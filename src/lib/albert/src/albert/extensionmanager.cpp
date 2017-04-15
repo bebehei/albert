@@ -62,6 +62,19 @@ Core::ExtensionManager::ExtensionManager() : d(new ExtensionManagerPrivate) {
             d->pluginDirs << fileInfo.absoluteFilePath();
     }
 
+#elif defined __FreeBSD__
+    QStringList dirs = {
+        "/usr/lib/", "/usr/local/lib/", "/usr/lib64/", "/usr/local/lib64/",
+        QDir::home().filePath(".local/lib/"),
+        QDir::home().filePath(".local/lib64/")
+    };
+
+    for ( const QString& dir : dirs ) {
+        QFileInfo fileInfo = QFileInfo(QDir(dir).filePath("albert/plugins"));
+        if ( fileInfo.isDir() )
+            d->pluginDirs << fileInfo.absoluteFilePath();
+    }
+
 #elif defined __APPLE__
     throw "Not implemented";
 #elif defined _WIN32

@@ -20,11 +20,18 @@ add_library(${PROJECT_NAME} SHARED ${SRC} ${QRC} ${UI})
 # Set INCLUDE_DIRS and INTERFACE_INCLUDE_DIRS
 target_include_directories(${PROJECT_NAME} PRIVATE src/)
 
+# FreeBSD installs muparser in /usr/local/lib, where cmake does not search
+if(${CMAKE_SYSTEM_NAME} MATCHES "FreeBSD")
+    find_library(muparser_LIBRARIES muparser PATHS "/usr/local/lib")
+else(${CMAKE_SYSTEM_NAME} MATCHES "FreeBSD")
+    set(muparser_LIBRARIES muparser)
+endif (${CMAKE_SYSTEM_NAME} MATCHES "FreeBSD")
+
 # Link target to libraries
 target_link_libraries(${PROJECT_NAME}
     ${Qt5Widgets_LIBRARIES}
     albertcore
-    muparser
+		${muparser_LIBRARIES}
     xdg
 )
 

@@ -25,6 +25,15 @@ if(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
     set(SRC ${SRC} src/hotkeymanager_x11.cpp)
     set(LIB ${LIB} ${Qt5X11Extras_LIBRARIES} X11)
 
+elseif(${CMAKE_SYSTEM_NAME} MATCHES "FreeBSD")
+
+    find_library(X11_LIBRARIES X11 PATHS "/usr/local/lib")
+    MESSAGE(STATUS "X11: ${var_X11}")
+    find_package(Qt5 5.2.0 REQUIRED X11Extras)
+
+    set(SRC ${SRC} src/hotkeymanager_x11.cpp)
+    set(LIB ${LIB} ${Qt5X11Extras_LIBRARIES} ${X11_LIBRARIES})
+
 elseif (${CMAKE_SYSTEM_NAME} MATCHES "Windows")
 
     set(SRC ${SRC} src/hotkey/hotkeymanager_win.cpp)
